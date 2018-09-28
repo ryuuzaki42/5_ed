@@ -1,11 +1,11 @@
 // --- Verifica o Sistema Operacional
 #if defined(_WIN32) || defined(_WIN64)
-    const int os = 2; //Windows
+    const int os=1; //Windows
 #else
     #ifdef __linux
-        const int os = 2; // Linux
+        const int os=2; // Linux
     #else
-        const int os = 0; //Unknown
+        const int os=0; //Unknown
     #endif
 #endif
 
