@@ -1,2 +1,1 @@
-# UFVEstruturaDeDados
-Monitoria da matéria de estruturas de dados
+Estruturas de dados em C
