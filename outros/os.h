@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 // --- Verifica o Sistema Operacional
 #if defined(_WIN32) || defined(_WIN64)
     const int os=1; //Windows
@@ -13,4 +15,12 @@
 void clean_stdin(){
     int c;
     while((c = getchar()) != '\n' && c != EOF);
+}
+
+void clean_output(){
+    if (os == 1){
+        system("cls");
+    }else if (os == 2){
+        system("clear");
+    }
 }
