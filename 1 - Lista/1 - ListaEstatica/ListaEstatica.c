@@ -57,7 +57,7 @@ int inserirNoFim(Lista* lista, Aluno novo){
 
 int inserirNaPosicao(Lista* lista, int posicao, Aluno novo){
     if(listaCheia(lista)){
-        printf("\n Erro: Lista cheia");
+        printf("\nErro: Lista cheia\n");
         return 0;
     }
     lista->ultimo++;
@@ -122,9 +122,9 @@ int pesquisarElemento(Lista* lista, Aluno novo){
 
 //IMPRIMIR
 void imprimirLista(Lista* lista){
-    printf("Imprimir Lista\n");
+    printf("\nImprimir Lista\n");
     if(ListaVazia(lista)){
-        printf("\n A sua lista esta vazia!");
+        printf("\nA sua lista esta vazia!\n");
         return;
     }
 
@@ -172,13 +172,12 @@ int main(){
             case 1:// Inserir no Inicio
                 printf("Digite o nome do aluno: ");
                 gets(a.nome);
-
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
                 if(inserirNoInicio(&lista, a)){
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista cheia.");
+                    printf("\nErro: Lista cheia\n");
                 }
                 break;
             case 2:// Inserir no final
@@ -188,9 +187,9 @@ int main(){
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
                 if(inserirNoFim(&lista, a)){
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista cheia.");
+                    printf("\nErro: Lista cheia\n");
                 }
                 break;
             case 3:// Inerir na posicao K
@@ -203,27 +202,27 @@ int main(){
                 printf("Digite a posicao para insercao: ");
                 scanf("%d", &posicaoK);
                 if(inserirNaPosicao(&lista,posicaoK-1, a)){
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista cheia.");
+                    printf("\nErro: Lista cheia\n");
                 }
                 break;
             case 4:// Remover no inicio
                 a = removerNoInicio(&lista);
                 if(a.idade != -1){
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista Vazia :(");
+                    printf("\nErro: Lista Vazia :(\n");
                 }
                 break;
             case 5:// Remover no final
                 a = removerNoFim(&lista);
                 if(a.idade != -1){
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista Vazia :(");
+                    printf("\nErro: Lista Vazia :(\n");
                 }
                 break;
             case 6:// Remover na posicao K
@@ -232,16 +231,16 @@ int main(){
                 a = removerNaPosicao(&lista,posicaoK-1);
                 if(a.idade != -1){
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)\n");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Erro: Lista Vazia :(");
+                    printf("\nErro: Lista Vazia :(\n");
                 }
                 break;
             case 7:// Mostrar Lista
                 imprimirLista(&lista);
                 break;
             default:
-                printf("Opcao invalida");
+                printf("\nOpcao invalida\n");
                 break;
         }
     }while(1);
