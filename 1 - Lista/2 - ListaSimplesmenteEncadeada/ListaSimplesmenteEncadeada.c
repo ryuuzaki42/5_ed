@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "../../outros/os.h"
 
@@ -91,7 +90,7 @@ Aluno removerNoFim(Lista** lista){
 //EXTRA
 void liberarLista(Lista** lista){
     if(listaVazia(*lista)){
-        printf("Lista Vazia!\n");
+        printf("\nLista Vazia!\n");
         return;
     }
     Lista *removida;
@@ -104,9 +103,9 @@ void liberarLista(Lista** lista){
 
 //IMPRIMIR
 void imprimirLista(Lista** lista){
-    printf("Imprimir Lista\n");
+    printf("\nImprimir Lista\n");
     if(listaVazia(*lista)){
-        printf("Lista Vazia!\n");
+        printf("\nLista Vazia!\n");
         return;
     }
     Lista *aux = (*lista);
@@ -117,7 +116,7 @@ void imprimirLista(Lista** lista){
         i++;
         aux = aux->next;
     }
-    printf("\n\n");
+    printf("\n");
 }
 
 void Menu (){
@@ -163,9 +162,9 @@ int main (){
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
                 if(inserirNoInicio(&lista, a)){
-                    printf("Tudo certo :)\n");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Ocorreu um erro :(\n");
+                    printf("\nOcorreu um erro :(\n");
                 }
                 break;
             case 2:// Inserir no final
@@ -174,27 +173,27 @@ int main (){
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
                 if(inserirNoFim(&lista, a)){
-                    printf("Tudo certo :)");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Ocorreu um erro :(\n");
+                    printf("\nOcorreu um erro :(\n");
                 }
                 break;
             case 3:// Remover no inicio
                 a = removerNoInicio(&lista);
                 if(a.nome){
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)\n");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Lista Vazia :(\n");
+                    printf("\nLista Vazia :(\n");
                 }
                 break;
             case 4:// Remover no final
                 a = removerNoFim(&lista);
                 if(a.nome){
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)\n");
+                    printf("\nTudo certo :)\n");
                 }else{
-                    printf("\n Lista Vazia :(\n");
+                    printf("\nLista Vazia :(\n");
                 }
                 break;
             case 5:
@@ -204,7 +203,7 @@ int main (){
                 imprimirLista(&lista);
                 break;
             default:
-                printf("Opcao invalida\n");
+                printf("\nOpcao invalida\n");
                 break;
         }
     }while(1);
