@@ -111,7 +111,6 @@ void imprimirLista(Lista** lista){
     }
     Lista *aux = (*lista);
     int i = 1;
-    
     printf("id - nome - idade\n");
     while (aux != NULL){
         printf("%d - %s - %d\n",i,aux->info.nome,aux->info.idade);
