@@ -120,15 +120,15 @@ void imprimirMaisVelho(Lista** lista){
         return;
     }
     Lista *aux = (*lista)->next;
-    Lista *aluno;
+    Lista *aluno = (*lista);
     int maior = (*lista)->info.idade;
-    do{
+    while(aux != (*lista)->next){
         if(aux->info.idade > maior){
             aluno = aux;
             maior = aux->info.idade;
         }
         aux= aux->next;
-    }while(aux != (*lista)->next);
+    }
     printf("Aluno: %s eh o mais velho com %d anos.\n", aluno->info.nome, aluno->info.idade);
 }
 
