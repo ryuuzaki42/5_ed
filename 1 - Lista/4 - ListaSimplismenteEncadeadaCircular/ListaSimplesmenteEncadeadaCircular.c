@@ -129,7 +129,7 @@ void imprimirMaisVelho(Lista** lista){
         }
         aux= aux->next;
     }while(aux != (*lista)->next);
-    printf("Aluno: %s eh o maior com %d anos.\n", aluno->info.nome, aluno->info.idade);
+    printf("Aluno: %s eh o mais velho com %d anos.\n", aluno->info.nome, aluno->info.idade);
 }
 
 void imprimirLista(Lista** lista){
