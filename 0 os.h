@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include<stdlib.h>
 
 // --- Verifica o Sistema Operacional
 #if defined(_WIN32) || defined(_WIN64)
@@ -18,9 +18,9 @@ void clean_stdin(){
 }
 
 void clean_output(){
-    if (os == 1){
+    if(os == 1){
         system("cls");
-    }else if (os == 2){
+    }else if(os == 2){
         system("clear");
     }
 }
