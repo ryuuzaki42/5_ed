@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include<stdio.h>
 
-#include "../../outros/os.h"
+#include "0 os.h" //To use clean_output() and clean_stdin()
 
 typedef struct sAluno{
     char nome[100];

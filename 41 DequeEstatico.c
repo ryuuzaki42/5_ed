@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 
-#include "../../outros/os.h"
+#include "0 os.h" //To use clean_output() and clean_stdin()
 
 #define MAX_TAM 5
 
