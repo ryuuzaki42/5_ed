@@ -7,11 +7,7 @@ typedef struct sNo{
     struct sNo *dir;
 }No;
 
-typedef struct sArvBinPesq{
-    No *ptRaiz;
-}ArvBinPesq;
-
-void criarArvore(No **ptRaiz){ //Inicializar
+void inicializarArvore(No **ptRaiz){
     *ptRaiz = NULL;
 }
 
@@ -62,11 +58,27 @@ void insereSemRecursao(No** ptRaiz, int info2){ //Inserção com recursão
     if(aux2 == NULL){
         *ptRaiz = novo;
     }else {
-        if(info2 <aux2->info){
-            (aux2)-> esq = novo;
+        if(info2 < aux2->info){
+            (aux2)->esq = novo;
         }else{
-            (aux2)-> dir = novo;
+            (aux2)->dir = novo;
         }
+    }
+}
+
+void maiorValor(No* ptRaiz){
+    if((ptRaiz->dir != NULL) && (ptRaiz->dir->info > ptRaiz->info)){
+        maiorValor(ptRaiz->dir);
+    }else{
+        printf("Maior Valor: %d\n", ptRaiz->info);
+    }
+}
+
+void menorValor(No* ptRaiz){
+    if((ptRaiz->esq != NULL) && (ptRaiz->esq->info < ptRaiz->info)){
+        menorValor(ptRaiz->esq);
+    }else{
+        printf("Menor Valor: %d\n", ptRaiz->info);
     }
 }
 
@@ -88,11 +100,11 @@ No *MaiorDireita(No **no){ //Remoção
 No *MenorEsquerda(No **no){
     if((*no)->esq != NULL){
         return MenorEsquerda(&(*no)->esq);
-    } else {
+    }else{
         No *aux = *no;
         if((*no)->dir != NULL) { // se nao houver essa verificacao, esse nó vai perder todos os seus filhos da dir!
             *no = (*no)->dir;
-        } else {
+        }else{
             *no = NULL;
         }
         return aux;
@@ -140,8 +152,29 @@ void remover(No **ptRaiz, int info2){
     }
 }
 
-void visita(No *raiz){
-    printf("    %d\n",raiz->info);
+void printTrace(int level){
+    for (int i=0;i<level;i++){
+        printf("-");
+    }
+}
+
+void imprimirArvore(No* ptRaiz, int level){
+    if(ptRaiz == NULL){
+        printTrace(level);
+        printf("*\n");
+        return;
+    }
+
+    imprimirArvore(ptRaiz->dir, level+1); 
+
+    printTrace(level);
+    printf("%d\n", ptRaiz->info);
+
+    imprimirArvore(ptRaiz->esq, level+1);
+}
+
+void visita(No *ptRaiz){
+    printf("%d\n",ptRaiz->info);
 }
 
 void exibirEmOrdem(No *ptRaiz){ //Em ordem
@@ -256,6 +289,7 @@ int procuraElementoSemRecursao(No *ptRaiz, int info2){ // Procura o elemento na 
         }
     }
 }
+
 No* procuraElementoComRecursao(No *ptRaiz, int info2){ // Procura o elemento na árvore // O(log n)
     No* aux;
     aux = ptRaiz;
@@ -270,27 +304,30 @@ No* procuraElementoComRecursao(No *ptRaiz, int info2){ // Procura o elemento na 
         return aux;
     }
 }
-int main(){
-    //ArvBinPesq ptRaiz;
-    No *ptRaiz;
-    No* ptTemp;
-    criarArvore(&ptRaiz);
 
-    int info2, opcao, temp;
+int main(){
+    int info2, opcao;
+    No *ptRaiz;
+
+    inicializarArvore(&ptRaiz);
 
     while(1){
-        printf("\n\n1 insere sem recursao");
-        printf("\n2 insere com recursao");
-        printf("\n3 remover");
-        printf("\n4 exibirPreOrdem");
-        printf("\n5 exibirEmOrdem");
-        printf("\n6 exibirPosOrdem");
-        printf("\n7 contarFolhas");
-        printf("\n8 contarNos");
-        printf("\n9 alturaArvore");
+        printf("\nArvore Binaria de Pesquisada");
+        printf("\n 1 insere sem recursao");
+        printf("\n 2 insere com recursao");
+        printf("\n 3 remover");
+        printf("\n 4 exibirPreOrdem");
+        printf("\n 5 exibirEmOrdem");
+        printf("\n 6 exibirPosOrdem");
+        printf("\n 7 contarFolhas");
+        printf("\n 8 contarNos");
+        printf("\n 9 alturaArvore");
         printf("\n10 procuraElementoSemRecursao");
         printf("\n11 procuraElementoComRecursao");
-        printf("\n0 Para sair do programa");
+        printf("\n12 Mostrar a arvore lateralmente");
+        printf("\n13 maior valor");
+        printf("\n14 menor valor");
+        printf("\n 0 Para sair do programa");
         printf("\nDigite a opcao desejada: ");
         scanf("%d", &opcao);
 
@@ -321,24 +358,19 @@ int main(){
                 exibirPosOrdem(ptRaiz);
                 break;
             case 7:
-                temp=contarFolhas(ptRaiz);
-                printf("Quantidade de folhas: %d", temp);
+                printf("Quantidade de folhas: %d", contarFolhas(ptRaiz));
                 break;
             case 8:
-                temp=contarNos(ptRaiz);
-                printf("Quantidade de nos: %d", temp);
+                printf("Quantidade de nos: %d", contarNos(ptRaiz));
                 break;
             case 9:
-                temp=alturaArvore(ptRaiz);
-                printf("Altura da arvore: %d", temp);
+                printf("Altura da arvore: %d", alturaArvore(ptRaiz));
                 break;
             case 10:
                 printf("Numero a ser pesquisado: ");
                 scanf("%d", &info2);
 
-                temp = procuraElementoSemRecursao(ptRaiz, info2);
-
-                if (temp == 1){
+                if(procuraElementoSemRecursao(ptRaiz, info2) == 1){
                     printf("\n\nElemento %d encontrado", info2);
                 }else{
                     printf("\n\nElemento nao %d encontrado", info2);
@@ -348,13 +380,20 @@ int main(){
                 printf("Numero a ser pesquisado: ");
                 scanf("%d", &info2);
 
-                ptTemp = procuraElementoComRecursao(ptRaiz, info2);
-
-                if (ptTemp != NULL){
-                    printf("\n\nElemento %d encontrado: %d", info2, ptTemp->info);
+                if(procuraElementoComRecursao(ptRaiz, info2) != NULL){
+                    printf("\n\nElemento %d encontrado", info2);
                 }else{
                     printf("\n\nElemento nao %d encontrado", info2);
                 }
+                break;
+            case 12:
+                imprimirArvore(ptRaiz, 0);
+                break;
+            case 13:
+                maiorValor(ptRaiz);
+                break;
+            case 14:
+                menorValor(ptRaiz);
                 break;
             case 0:
                 exit(0);
