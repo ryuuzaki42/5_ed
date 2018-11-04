@@ -58,46 +58,52 @@ int inserirNoFim(Lista** lista, Aluno novo){
 }
 
 //REMOVER
-Aluno removerNoInicio(Lista** lista){
+void removerNoInicio(Lista** lista){
     if(listaVazia((*lista))){
-        return;
+        printf("\nLista Vazia :(\n");
+    }else{
+        Aluno removido;
+        Lista* aux = (*lista);
+        (*lista) = (*lista)->next;
+        removido = aux->info;
+        free(aux);
+
+        printf("ELEMENTO REMOVIDO: %s\n", removido.nome);
+        printf("\nTudo certo :)\n");
     }
-    Aluno removido;
-    Lista* aux = (*lista);
-    (*lista) = (*lista)->next;
-    removido = aux->info;
-    free(aux);
-    return removido;
 }
 
-Aluno removerNoFim(Lista** lista){
+void removerNoFim(Lista** lista){
     if(listaVazia((*lista))){
-        return;
+        printf("\nLista Vazia :(\n");
+    }else{
+        Aluno removido;
+        Lista* ant = NULL;
+        Lista* aux = (*lista);
+        while(aux->next != NULL){
+            ant = aux;
+            aux = aux->next;
+        }
+        ant->next = NULL;
+        removido = aux->info;
+        free(aux);
+
+        printf("ELEMENTO REMOVIDO: %s\n", removido.nome);
+        printf("\nTudo certo :)\n");
     }
-    Aluno removido;
-    Lista* ant = NULL;
-    Lista* aux = (*lista);
-    while(aux->next != NULL){
-        ant = aux;
-        aux = aux->next;
-    }
-    ant->next = NULL;
-    removido = aux->info;
-    free(aux);
-    return removido;
 }
 
 //EXTRA
 void liberarLista(Lista** lista){
     if(listaVazia(*lista)){
         printf("\nLista Vazia!\n");
-        return;
-    }
-    Lista *removida;
-    while ((*lista) != NULL){
-        removida = (*lista);
-        (*lista) = (*lista)->next;
-        free(removida);
+    } else {
+        Lista *removida;
+        while ((*lista) != NULL){
+            removida = (*lista);
+            (*lista) = (*lista)->next;
+            free(removida);
+        }
     }
 }
 
@@ -106,17 +112,17 @@ void imprimirLista(Lista** lista){
     printf("\nImprimir Lista\n");
     if(listaVazia(*lista)){
         printf("\nLista Vazia!\n");
-        return;
+    } else {
+        Lista *aux = (*lista);
+        int i = 1;
+        printf("id - nome - idade\n");
+        while (aux != NULL){
+            printf("%d - %s - %d\n",i,aux->info.nome,aux->info.idade);
+            i++;
+            aux = aux->next;
+        }
+        printf("\n");
     }
-    Lista *aux = (*lista);
-    int i = 1;
-    printf("id - nome - idade\n");
-    while (aux != NULL){
-        printf("%d - %s - %d\n",i,aux->info.nome,aux->info.idade);
-        i++;
-        aux = aux->next;
-    }
-    printf("\n");
 }
 
 void Menu (){
@@ -179,22 +185,10 @@ int main (){
                 }
                 break;
             case 3:// Remover no inicio
-                a = removerNoInicio(&lista);
-                if(a.nome){
-                    printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("\nTudo certo :)\n");
-                }else{
-                    printf("\nLista Vazia :(\n");
-                }
+                removerNoInicio(&lista);
                 break;
             case 4:// Remover no final
-                a = removerNoFim(&lista);
-                if(a.nome){
-                    printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("\nTudo certo :)\n");
-                }else{
-                    printf("\nLista Vazia :(\n");
-                }
+                removerNoFim(&lista);
                 break;
             case 5:
                 liberarLista(&lista);
