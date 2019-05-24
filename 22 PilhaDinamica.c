@@ -78,7 +78,6 @@ void imprimirTodos(Pilha* pilha) {
 
     Pilha pilha2;
     inicializar(&pilha2);
-    Aluno temp;
     Celula* cell;
 
     do {
