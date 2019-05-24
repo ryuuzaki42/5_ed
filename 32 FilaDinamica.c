@@ -74,7 +74,6 @@ Aluno removerNaFila(Fila* fila) {
         return removido;
     }
 
-    Celula* removida = fila->ini;
     removido = criarElemento(fila->ini->info.nome, fila->ini->info.idade);
     fila->ini = fila->ini->next;
     return removido;
