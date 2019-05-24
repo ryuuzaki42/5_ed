@@ -1,51 +1,52 @@
 #include<stdio.h>
 #include<string.h>
 
-#include "0 os.h" //To use clean_output() and clean_stdin()
+#include "0 os.h" // To use clean_output() and clean_stdin()
 
 #define MAX_TAM 5
 
-typedef struct sAluno{
+typedef struct sAluno {
     char nome[100];
     int idade;
-}Aluno;
+} Aluno;
 
-typedef struct sFila{
+typedef struct sFila {
     Aluno info[MAX_TAM];
     int ini, fim;
-}Fila;
+} Fila;
 
-void inicializar(Fila* fila){
+void inicializar(Fila* fila) {
     fila->ini=0;
     fila->fim=0;
 }
 
-int filaVazia(Fila* fila){
-    if(fila->ini == fila->fim){
+int filaVazia(Fila* fila) {
+    if(fila->ini == fila->fim)
         return 1;
-    }
+
     return 0;
 }
 
-int filaCheia(Fila* fila){
-    int prox = (fila-> fim+1) % MAX_TAM;
-    if(prox == fila->ini){
+int filaCheia(Fila* fila) {
+    int prox = (fila-> fim + 1) % MAX_TAM;
+
+    if(prox == fila->ini)
         return 1;
-    }
+
     return 0;
 }
 
-Aluno criarElemento(char nome[], int idade){
+Aluno criarElemento(char nome[], int idade) {
     Aluno e;
     strcpy(e.nome, nome);
     e.idade = idade;
     return e;
 }
 
-int inserirNaFila(Fila* fila , Aluno elem){
-    if(filaCheia(fila)){
+int inserirNaFila(Fila* fila, Aluno elem) {
+    if(filaCheia(fila))
         return 0;
-    }
+
     fila->info[fila->fim].idade = elem.idade;
     strcpy(fila->info[fila->fim].nome, elem.nome);
     int prox = (fila->fim+1) % MAX_TAM;
@@ -53,93 +54,100 @@ int inserirNaFila(Fila* fila , Aluno elem){
     return 1;
 }
 
-Aluno removerNaFila(Fila* fila){
+Aluno removerNaFila(Fila* fila) {
     Aluno rem = criarElemento("",-1);
-    if(filaVazia(fila)){
+
+    if(filaVazia(fila))
         return rem;
-    }
+
     int prox = (fila->ini+1) % MAX_TAM;
     rem = fila->info[fila->ini];
     fila->ini = prox;
     return rem;
 }
 
-void imprimirTodos(Fila* fila){
+void imprimirTodos(Fila* fila) {
     printf("Imprimir fila:\n");
-    if(filaVazia(fila)){
+
+    if(filaVazia(fila))
         return;
-    }
+
     Fila aux;
     inicializar(&aux);
-    while(!filaVazia(fila)){
-        printf("Nome: %s - %d\n",fila->info[fila->ini].nome,fila->info[fila->ini].idade);
+
+    while(!filaVazia(fila)) {
+        printf("Nome: %s - %d\n",fila->info[fila->ini].nome, fila->info[fila->ini].idade);
         inserirNaFila(&aux, removerNaFila(fila));
     }
-    while(!filaVazia(&aux)){
+
+    while(!filaVazia(&aux))
         inserirNaFila(fila, removerNaFila(&aux));
-    }
 }
 
-void Menu(){
+void Menu() {
     printf("\n::INSERIR\n");
     printf("  [1] - Enfileirar\n");
-
     printf("\n::REMOVER\n");
     printf("  [2] - Desenfileirar\n");
-
     printf("\n::MOSTRAR\n");
     printf("  [3] - Imprimir\n\n");
-
     printf("::SAIR\n");
     printf("  [0] - Sair\n\n");
 }
 
-int main(){
+int main() {
     Aluno e;
     Fila fila;
     inicializar(&fila);
     int option;
-    do{
+
+    do {
         Menu();
         printf("Digite uma opcao: ");
         scanf("%d", &option);
-
         clean_output();
         clean_stdin();
 
-        switch(option){
+        switch(option) {
             case 0:
                 return 0;
+
             case 1:
                 printf("-------  ENFILEIRANDO  ------\n\n");
                 printf("Digite o nome: ");
                 scanf("%s", e.nome);
-
                 printf("Digite o idade: ");
                 scanf("%d", &e.idade);
-                if(inserirNaFila(&fila, e)){
+
+                if(inserirNaFila(&fila, e))
                     printf("\nAluno inserido :)\n");
-                }else{
+                else
                     printf("\nOcorreu um erro :(\n");
-                }
+
                 break;
+
             case 2:
                 printf("-------  DESENFILEIRANDO  ------\n\n");
                 e = removerNaFila(&fila);
-                if(e.idade != -1){
+
+                if(e.idade != -1)
                     printf("\nAluno retirado: %s\n",e.nome);
-                }else{
+                else
                     printf("\nfila Vazia :(\n");
-                }
+
                 imprimirTodos(&fila);
                 break;
+
             case 3:
                 imprimirTodos(&fila);
                 break;
+
             default:
                 printf("\nOpcao invalida!\n");
         }
+
         printf("\n");
-    }while(1);
+    } while(1);
+
     return 0;
 }
