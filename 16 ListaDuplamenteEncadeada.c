@@ -155,7 +155,7 @@ void Menu() {
 int main() {
     Lista* lista;
     Aluno a;
-    int option,posicaoK;
+    int option;
     inicializar(&lista);
 
     do {
