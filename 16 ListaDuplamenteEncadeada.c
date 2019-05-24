@@ -70,6 +70,7 @@ int inserirNoFim(Lista** lista, Aluno novo) {
 // REMOVER
 Aluno removerNoInicio(Lista** lista) {
     Aluno removido;
+
     if(listaVazia((*lista)))
         return removido;
 
@@ -86,6 +87,7 @@ Aluno removerNoInicio(Lista** lista) {
 
 Aluno removerNoFim(Lista** lista) {
     Aluno removido;
+
     if(listaVazia((*lista)))
         return removido;
 

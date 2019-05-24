@@ -7,12 +7,12 @@
 typedef struct sAluno {
     char nome[100];
     int idade;
-}Aluno;
+} Aluno;
 
 typedef struct sLista {
     Aluno info[MAXTAM];
     int ultimo;
-}Lista;
+} Lista;
 
 void inicializar(Lista* lista) {
     lista->ultimo = -1;

@@ -96,6 +96,7 @@ int inserirOrdenado(Lista **lista, Lista* inserir) {
 // REMOVER
 Aluno removerNoInicio(Lista** lista) {
     Aluno removido;
+
     if(listaVazia((*lista)))
         return removido;
 
@@ -108,6 +109,7 @@ Aluno removerNoInicio(Lista** lista) {
 
 Aluno removerNoFim(Lista** lista) {
     Aluno removido;
+
     if(listaVazia((*lista)))
         return removido;
 
