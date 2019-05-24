@@ -91,6 +91,7 @@ No *MaiorDireita(No **no) { // Remoção
             return aux;
         }
     }
+    return *no;
 }
 
 No *MenorEsquerda(No **no) {
@@ -281,6 +282,7 @@ int procuraElementoSemRecursao(No *ptRaiz, int info2) { // Procura o elemento na
             }
         }
     }
+    return 0;
 }
 
 No* procuraElementoComRecursao(No *ptRaiz, int info2) { // Procura o elemento na árvore // O(log n)
