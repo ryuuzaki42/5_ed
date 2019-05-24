@@ -190,8 +190,7 @@ void Menu() {
 int main() {
     Lista* lista;
     Aluno a;
-    int k;
-    int option,posicaoK;
+    int k, option;
     inicializar(&lista);
 
     do {
