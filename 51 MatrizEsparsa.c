@@ -110,7 +110,7 @@ int remover(matriz_esparsa *matriz, int lin, int col) {
     col = col-1;
     celula *removida;
     celula *aux = matriz->linha[lin];
-    celula *ant;
+    celula *ant = NULL;
     //printf("%d\n", aux->info);
 
     while(aux != NULL && aux->coluna != col) {
@@ -236,7 +236,6 @@ int main() {
                 break;
         }
 
-        printf("\e[H\e[2J");
         imprimir2(&matriz);
     } while(escolha != 4);
 
