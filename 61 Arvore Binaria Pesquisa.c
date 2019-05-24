@@ -91,6 +91,7 @@ No *MaiorDireita(No **no) { // Remoção
             return aux;
         }
     }
+
     return *no;
 }
 
@@ -282,6 +283,7 @@ int procuraElementoSemRecursao(No *ptRaiz, int info2) { // Procura o elemento na
             }
         }
     }
+
     return 0;
 }
 
