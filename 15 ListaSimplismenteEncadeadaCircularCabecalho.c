@@ -1,169 +1,185 @@
 #include<stdio.h>
 
-#include "0 os.h" //To use clean_output() and clean_stdin()
+#include "0 os.h" // To use clean_output() and clean_stdin()
 
-typedef struct sAluno{
+typedef struct sAluno {
     char nome[100];
     int idade;
-}Aluno;
+} Aluno;
 
-typedef struct sCelula{
+typedef struct sCelula {
     Aluno info;
     struct sCelula *next;
-}Lista;
+} Lista;
 
-void inicializar(Lista** lista){
+void inicializar(Lista** lista) {
     (*lista) = NULL;
 }
 
-int listaVazia(Lista* lista){
-    if(lista == lista->next){
+int listaVazia(Lista* lista) {
+    if(lista == lista->next)
         return 1;
-    }
+
     return 0;
 }
 
-Lista* criarCelula(){
-    return (Lista*) malloc (sizeof(Lista));
+Lista* criarCelula() {
+    return (Lista*) malloc(sizeof(Lista));
 }
 
-int inserirNoInicio(Lista** lista, Aluno inserido){
+int inserirNoInicio(Lista** lista, Aluno inserido) {
     Lista* novaCelula = criarCelula();
-    if(novaCelula == NULL){
+
+    if(novaCelula == NULL)
         return 0;
-    }
+
     novaCelula->info = inserido;
     novaCelula->next = NULL;
-    if(listaVazia(*lista)){
+
+    if(listaVazia(*lista)) {
         (*lista)->next = novaCelula;
         novaCelula->next = (*lista);
         return 1;
     }
+
     novaCelula->next = (*lista)->next;
     (*lista)->next = novaCelula;
     return 1;
 }
 
-int inserirNoFim(Lista** lista, Aluno inserido){
-    if(listaVazia(*lista)){
+int inserirNoFim(Lista** lista, Aluno inserido) {
+    if(listaVazia(*lista))
         return inserirNoInicio(lista,inserido);
-    }
+
     Lista* novaCelula = criarCelula();
-    if(novaCelula == NULL){
+
+    if(novaCelula == NULL)
         return 0;
-    }
+
     novaCelula->info = inserido;
     novaCelula->next = (*lista);
     Lista* aux = (*lista)->next;
-    while (aux->next != (*lista)){
+
+    while(aux->next != (*lista))
         aux = aux->next;
-    }
+
     aux->next = novaCelula;
     return 1;
 }
 
-Aluno removerNoInicio(Lista** lista){
+Aluno removerNoInicio(Lista** lista) {
     Aluno removido;
-    if(listaVazia(*lista)){
+
+    if(listaVazia(*lista)) {
         removido.idade = -1;
         return removido;
     }
+
     Lista *removida = (*lista)->next;
     removido = removida->info;
     (*lista)->next = removida->next;
-
     free(removida);
     return removido;
 }
 
-Aluno removerNoFim(Lista** lista){
+Aluno removerNoFim(Lista** lista) {
     Aluno removido;
-    if(listaVazia(*lista)){
+
+    if(listaVazia(*lista)) {
         removido.idade = -1;
         return removido;
     }
+
     Lista* penultimo = NULL;
     Lista* ultimo = (*lista)->next;
-    while(ultimo->next != (*lista)){
+
+    while(ultimo->next != (*lista)) {
         penultimo = ultimo;
         ultimo = ultimo->next;
     }
+
     penultimo->next = (*lista);
     removido = ultimo->info;
     free(ultimo);
     return removido;
 }
 
-//IMPRIMIR
-void imprimirImpar(Lista** lista){
-    if(listaVazia(*lista)){
+// IMPRIMIR
+void imprimirImpar(Lista** lista) {
+    if(listaVazia(*lista))
         return;
-    }
+
     Lista *aux = (*lista)->next;
     printf("Alunos com idade impar:\nnome - idade\n");
-    do{
-        if(aux->info.idade %2 != 0){
+
+    do {
+        if(aux->info.idade %2 != 0)
             printf("%s - %d\n", aux->info.nome, aux->info.idade);
-        }
+
         aux= aux->next;
-    }while(aux != (*lista));
+    } while(aux != (*lista));
 }
 
-void imprimirMaisVelho(Lista** lista){
-    if(listaVazia(*lista)){
+void imprimirMaisVelho(Lista** lista) {
+    if(listaVazia(*lista))
         return;
-    }
+
     Lista *aux = (*lista)->next;
     Lista *aluno = (*lista);
     int maior = (*lista)->info.idade;
-    while(aux != (*lista)){
-        if(aux->info.idade > maior){
-          aluno = aux;
-          maior = aux->info.idade;
+
+    while(aux != (*lista)) {
+        if(aux->info.idade > maior) {
+            aluno = aux;
+            maior = aux->info.idade;
         }
+
         aux= aux->next;
     }
+
     printf("Aluno: %s eh o mais velho, com %d anos.\n", aluno->info.nome, aluno->info.idade);
 }
 
-void imprimirLista(Lista** lista){
-    if(listaVazia(*lista)){
+void imprimirLista(Lista** lista) {
+    if(listaVazia(*lista)) {
         printf("Lista Vazia!\n");
         return;
     }
+
     Lista* aux = (*lista);
     printf("nome - idade\n");
-    do{
+
+    do {
         aux = aux->next;
-        printf("%s - %d\n", aux->info.nome,aux->info.idade);
-    }while(aux->next != (*lista));
+        printf("%s - %d\n", aux->info.nome, aux->info.idade);
+    } while(aux->next != (*lista));
+
     printf("\n");
 }
 
-//EXTRA
-void liberarLista(Lista** lista){
-    if(listaVazia(*lista)){
+// EXTRA
+void liberarLista(Lista** lista) {
+    if(listaVazia(*lista)) {
         printf("Lista Vazia!\n");
         return;
     }
+
     Lista *removida;
-    while ((*lista)->next != (*lista)){
+
+    while((*lista)->next != (*lista)) {
         removida = (*lista)->next; // Removida aponta para o primeiro item
         (*lista)->next = removida->next; // Mudo o ponteiro da lista
         free(removida);
     }
 }
 
-void Menu(){
-    //---------MENU---------//
+void Menu() {
     printf("\n::INSERIR\n");
     printf("  [1] - Inserir no Inicio\n");
     printf("  [2] - Inserir no Final\n");
-
     printf("::REMOVER\n");
     printf("  [3] - Remover no Inicio\n");
     printf("  [4] - Remover no Final\n");
-
     printf("::MOSTRAR\n");
     printf("  [5] - Mostrar Alunos com idade impar\n\n");
     printf("  [6] - Mostrar Aluno mais velho\n\n");
@@ -173,86 +189,96 @@ void Menu(){
     printf("  [0] - Sair\n");
 }
 
-int main(){
+int main() {
     Lista* lista;
     Aluno a;
     int option;
-
     inicializar(&lista);
-
     Lista* cabecalho = criarCelula();
     cabecalho->next = cabecalho;
-
     lista = cabecalho;
 
-    do{
+    do {
         Menu();
         printf("\nDigite uma opcao: ");
         scanf("%d", &option);
-
         clean_output();
         clean_stdin();
 
-        switch(option){
+        switch(option) {
             case 0:
                 liberarLista(&lista);
                 return 0;
-            case 1:// Inserir no Inicio
+
+            case 1: // Inserir no Inicio
                 printf("Digite o nome do aluno: ");
                 gets(a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
-                if(inserirNoInicio(&lista, a)){
+
+                if(inserirNoInicio(&lista, a))
                     printf("Tudo certo :)\n");
-                }else{
+                else
                     printf("\n Ocorreu um erro :(\n");
-                }
+
                 break;
-            case 2:// Inserir no final
+
+            case 2: // Inserir no final
                 printf("Digite o nome do aluno: ");
                 gets(a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
-                if(inserirNoFim(&lista, a)){
+
+                if(inserirNoFim(&lista, a))
                     printf("Tudo certo :)");
-                }else{
+                else
                     printf("\n Ocorreu um erro :(\n");
-                }
+
                 break;
-            case 3:// Remover no inicio
+
+            case 3: // Remover no inicio
                 a = removerNoInicio(&lista);
-                if(a.nome){
+
+                if(a.nome) {
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
                     printf("Tudo certo :)\n");
-                }else{
+                } else
                     printf("\n Lista Vazia :(\n");
-                }
+
                 break;
-            case 4:// Remover no final
+
+            case 4: // Remover no final
                 a = removerNoFim(&lista);
-                if(a.nome){
+
+                if(a.nome) {
                     printf("ELEMENTO REMOVIDO: %s\n", a.nome);
                     printf("Tudo certo :)\n");
-                }else{
+                } else
                     printf("\n Lista Vazia :(\n");
-                }
+
                 break;
-            case 5:// Mostrar impar
+
+            case 5: // Mostrar impar
                 imprimirImpar(&lista);
                 break;
-            case 6:// Mostrar mais velho
+
+            case 6: // Mostrar mais velho
                 imprimirMaisVelho(&lista);
                 break;
-            case 7:// Mostrar Lista
+
+            case 7: // Mostrar Lista
                 imprimirLista(&lista);
                 break;
-            case 8:// Mostrar Lista
+
+            case 8: // Mostrar Lista
                 liberarLista(&lista);
                 break;
+
             default:
                 printf("\nOpcao invalida\n");
                 break;
         }
-    }while(1);
+    } while(1);
+
     return 0;
 }
