@@ -206,7 +206,7 @@ int main() {
 
             case 1: // Inserir no Inicio
                 printf("Digite o nome do aluno: ");
-                gets(a.nome);
+                scanf("%s", a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
 
@@ -219,7 +219,7 @@ int main() {
 
             case 2: // Inserir no final
                 printf("Digite o nome do aluno: ");
-                gets(a.nome);
+                scanf("%s", a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
 
