@@ -1,171 +1,183 @@
 #include<stdio.h>
 #include<string.h>
 
-#include "0 os.h" //To use clean_output() and clean_stdin()
+#include "0 os.h" // To use clean_output() and clean_stdin()
 
-typedef struct sAluno{
+typedef struct sAluno {
     char nome[100];
     int idade;
-}Aluno;
+} Aluno;
 
-typedef struct sCelula{
+typedef struct sCelula {
     Aluno info;
     struct sCelula* prox;
-}Celula;
+} Celula;
 
-typedef struct sPilha{
+typedef struct sPilha {
     Celula* topo;
     int tam;
-}Pilha;
+} Pilha;
 
-void inicializar(Pilha* pilha){
+void inicializar(Pilha* pilha) {
     pilha->topo = NULL;
     pilha->tam = 0;
 }
 
-int pilhaVazia(Pilha* pilha){
-    if(pilha->topo == NULL){
+int pilhaVazia(Pilha* pilha) {
+    if(pilha->topo == NULL)
         return 1;
-    }
-  return 0;
+
+    return 0;
 }
 
-Celula* criarCelula(){
-    return (Celula*) malloc (sizeof(Celula));
+Celula* criarCelula() {
+    return (Celula*) malloc(sizeof(Celula));
 }
 
-Aluno criarElemento(char nome[], int idade){
+Aluno criarElemento(char nome[], int idade) {
     Aluno e;
     strcpy(e.nome, nome);
     e.idade = idade;
     return e;
 }
 
-int push(Pilha* pilha, Aluno a){
-  Celula* nova = criarCelula();
-  Celula* auxTopo = pilha->topo;
-  if(nova == NULL){
-      return 0;
-  }
-  nova->info = a;
-  nova->prox = auxTopo;
-  pilha->topo = nova;
-  pilha->tam++;
-  return 1;
+int push(Pilha* pilha, Aluno a) {
+    Celula* nova = criarCelula();
+    Celula* auxTopo = pilha->topo;
+
+    if(nova == NULL)
+        return 0;
+
+    nova->info = a;
+    nova->prox = auxTopo;
+    pilha->topo = nova;
+    pilha->tam++;
+    return 1;
 }
 
-Aluno pop(Pilha* pilha){
-  Aluno invalido = criarElemento("",-1);
-  if(pilha->topo == NULL){
-      return invalido;
-  }
-  Celula* removida = pilha->topo;
-  Aluno itemRemovido = removida->info;
-  pilha->topo = removida->prox;
-  pilha->tam--;
-  free(removida);
-  return itemRemovido;
+Aluno pop(Pilha* pilha) {
+    Aluno invalido = criarElemento("",-1);
+
+    if(pilha->topo == NULL)
+        return invalido;
+
+    Celula* removida = pilha->topo;
+    Aluno itemRemovido = removida->info;
+    pilha->topo = removida->prox;
+    pilha->tam--;
+    free(removida);
+    return itemRemovido;
 }
 
-//IMPRIMIR
-void imprimirTodos(Pilha* pilha){
+// IMPRIMIR
+void imprimirTodos(Pilha* pilha) {
     printf("Imprimindo Pilha\n");
-    if(pilha->topo==NULL){
+
+    if(pilha->topo == NULL)
         return;
-    }
+
     Pilha pilha2;
     inicializar(&pilha2);
     Aluno temp;
-    do{
-        Celula* cell = pilha->topo; 
-        printf("%s - %d\n", cell->info.nome,cell->info.idade);
-        push(&pilha2, pop(pilha));
-    }while(pilha->topo!= NULL);
+    Celula* cell;
 
-    do{
+    do {
+        cell = pilha->topo;
+        printf("%s - %d\n", cell->info.nome, cell->info.idade);
+        push(&pilha2, pop(pilha));
+    } while(pilha->topo != NULL);
+
+    do {
         push(pilha, pop(&pilha2));
-    }while(pilha2.topo != NULL);
+    } while(pilha2.topo != NULL);
 }
 
-Aluno topoDaPilha(Pilha* pilha){
+Aluno topoDaPilha(Pilha* pilha) {
     Aluno removido= criarElemento("",-1);
-    if(pilhaVazia(pilha)){
+
+    if(pilhaVazia(pilha))
         return removido;
-    }
+
     Celula* cell = pilha->topo;
     return cell->info;
 }
 
-void Menu(){
+void Menu() {
     printf("\n::INSERIR\n");
     printf("  [1] - Enfileirar\n");
-
     printf("\n::REMOVER\n");
     printf("  [2] - Desenfileirar\n");
-
     printf("\n::MOSTRAR\n");
     printf("  [3] - Topo\n");
     printf("  [4] - Imprimir\n\n");
-
     printf("::SAIR\n");
     printf("  [0] - Sair\n\n");
 }
 
-int main(){
+int main() {
     Aluno e;
     Pilha pilha;
     inicializar(&pilha);
     int option;
-    do{
+
+    do {
         Menu();
         printf("Digite uma opcao: ");
         scanf("%d", &option);
-
         clean_output();
         clean_stdin();
 
-        switch(option){
+        switch(option) {
             case 0:
                 return 0;
+
             case 1:
                 printf("-------  EMPILHANDO  ------\n\n");
                 printf("Digite o nome: ");
                 scanf("%s", e.nome);
-
                 printf("Digite o idade: ");
                 scanf("%d", &e.idade);
-                if(push(&pilha, e)){
+
+                if(push(&pilha, e))
                     printf("\nAluno inserido :)\n");
-                }else{
+                else
                     printf("\nOcorreu um erro :(\n");
-                }
+
                 break;
+
             case 2:
                 printf("-------  DESEMPILHANDO  ------\n\n");
                 imprimirTodos(&pilha);
                 e = pop(&pilha);
-                if(e.idade != -1){
+
+                if(e.idade != -1)
                     printf("\nAluno retirado: %s\n",e.nome);
-                }else{
+                else
                     printf("\nPilha Vazia :(\n");
-                }
+
                 imprimirTodos(&pilha);
                 break;
+
             case 3:
                 e = topoDaPilha(&pilha);
-                if(e.idade != -1){
+
+                if(e.idade != -1)
                     printf("\nO topo eh Nome: %s - Idade: %d\n", e.nome, e.idade);
-                }else{
+                else
                     printf("\nPilha Vazia :(\n");
-                }
+
                 break;
+
             case 4:
                 imprimirTodos(&pilha);
                 break;
+
             default:
                 printf("\nOpcao invalida!\n");
         }
+
         printf("\n");
-    }while(1);
+    } while(1);
+
     return 0;
 }
