@@ -66,7 +66,7 @@ int inserirNaPosicao(Lista* lista, int posicao, Aluno novo) {
         return 0;
     }
 
-    if((posicao < 1) || (posicao > (lista-> n +1))) {
+    if((posicao < 1) || (posicao > (lista->ultimo + 1))) {
         printf("\nErro: Posicao nao pode ser menor que 1\n");
         return 0;
     }
@@ -191,7 +191,7 @@ int main() {
 
             case 1: // Inserir no Inicio
                 printf("Digite o nome do aluno: ");
-                gets(a.nome);
+                scanf("%s", a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
 
@@ -204,7 +204,7 @@ int main() {
 
             case 2: // Inserir no final
                 printf("Digite o nome do aluno: ");
-                gets(a.nome);
+                scanf("%s", a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
 
@@ -217,7 +217,7 @@ int main() {
 
             case 3: // Inerir na posicao K
                 printf("Digite o nome do aluno: ");
-                gets(a.nome);
+                scanf("%s", a.nome);
                 printf("Digite a idade do aluno: ");
                 scanf("%d", &a.idade);
                 imprimirLista(&lista);
