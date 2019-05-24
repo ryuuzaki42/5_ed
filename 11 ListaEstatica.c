@@ -138,6 +138,7 @@ int pesquisarElemento(Lista* lista, Aluno novo) {
             return i; // Posicao do elemento
         }
     }
+
     return -1;
 }
 
