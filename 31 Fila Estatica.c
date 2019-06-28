@@ -54,6 +54,28 @@ int inserirNaFila(Fila* fila, Aluno elem) {
     return 1;
 }
 
+int filaCheia2(Fila *f) {
+    if(f->fim == f->ini)
+        return 1;
+    else
+        return 0;
+}
+
+void inserirNaFila2(Fila *f, Aluno elem) {
+    if(f->ini == 0)
+        f->ini = MAX_TAM - 1;
+    else
+        (f->ini)--;
+
+    if(filaCheia2(f)) {
+        printf("\nERRO: Fila Cheia");
+        f->ini = (f->ini + 1) % MAX_TAM;
+        return;
+    }
+
+    f->info[(f->ini + 1) % MAX_TAM] = elem;
+}
+
 Aluno removerNaFila(Fila* fila) {
     Aluno rem = criarElemento("",-1);
 
