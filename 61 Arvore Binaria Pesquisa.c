@@ -13,16 +13,16 @@ void inicializarArvore(No **ptRaiz) {
 
 void insereComRecursao(No **ptRaiz, int info2) { // Inserção com recursão
     if(*ptRaiz == NULL) {
-        *ptRaiz=(No *)malloc(sizeof(No));
+        *ptRaiz = (No *)malloc(sizeof(No));
 
         if(*ptRaiz == NULL) {
             printf("\nErro.Memoria nao alocada");
             return;
         }
 
-        (*ptRaiz)->esq=NULL;
-        (*ptRaiz)->dir=NULL;
-        (*ptRaiz)->info=info2;
+        (*ptRaiz)->esq = NULL;
+        (*ptRaiz)->dir = NULL;
+        (*ptRaiz)->info = info2;
     } else {
         if(info2 < ((*ptRaiz)->info))
             insereComRecursao(&((*ptRaiz)->esq), info2);
@@ -101,7 +101,7 @@ No *MenorEsquerda(No **no) {
     else {
         No *aux = *no;
 
-        if((*no)->dir != NULL) // se nao houver essa verificacao, esse nó vai perder todos os seus filhos da dir!
+        if((*no)->dir != NULL) // Se nao houver essa verificacao, esse nó vai perder todos os seus filhos da dir!
             *no = (*no)->dir;
         else
             *no = NULL;
@@ -121,26 +121,26 @@ void remover(No **ptRaiz, int info2) {
     else {
         if(info2 > (*ptRaiz)->info)
             remover(&(*ptRaiz)->dir, info2);
-        else { // se nao eh menor nem maior, logo, eh o info que estou procurando! :)
-            No *pAux = *ptRaiz; // quem programar no Embarcadero vai ter que declarar o pAux no inicio do void! :[
+        else { // Se nao eh menor nem maior, logo, eh o info que estou procurando! :)
+            No *pAux = *ptRaiz; // Quem programar no Embarcadero vai ter que declarar o pAux no inicio do void! :[
 
             if(((*ptRaiz)->esq == NULL) && ((*ptRaiz)->dir == NULL)) { // se nao houver filhos...
                 free(pAux);
                 (*ptRaiz) = NULL;
-            } else { // so tem o filho da dir
+            } else { // So tem o filho da dir
                 if((*ptRaiz)->esq == NULL) {
                     (*ptRaiz) = (*ptRaiz)->dir;
                     pAux->dir = NULL;
                     free(pAux);
                     pAux = NULL;
-                } else { // so tem filho da esq
+                } else { // So tem filho da esq
                     if((*ptRaiz)->dir == NULL) {
                         (*ptRaiz) = (*ptRaiz)->esq;
                         pAux->esq = NULL;
                         free(pAux);
                         pAux = NULL;
                     } else { // Escolhi fazer o maior filho direito da subarvore esq.
-                        pAux = MaiorDireita(&(*ptRaiz)->esq); //se vc quiser usar o Menor da esq, so o que mudaria seria isso:
+                        pAux = MaiorDireita(&(*ptRaiz)->esq); // Se vc quiser usar o Menor da esq, so o que mudaria seria isso:
                         pAux->esq = (*ptRaiz)->esq; // pAux = MenorEsquerda(&(*ptRaiz)->dir);
                         pAux->dir = (*ptRaiz)->dir;
                         (*ptRaiz)->esq = (*ptRaiz)->dir = NULL;
@@ -155,7 +155,7 @@ void remover(No **ptRaiz, int info2) {
 }
 
 void printTrace(int level) {
-    for(int i=0; i<level; i++)
+    for(int i = 0; i < level; i++)
         printf("-");
 }
 
@@ -233,49 +233,49 @@ int alturaArvore(No *ptRaiz) { // Altura da árvore
 
 int procuraElementoSemRecursao(No *ptRaiz, int info2) { // Procura o elemento na árvore // O(log n)
     No* temp = ptRaiz;
-    int parar=0;
+    int parar = 0;
 
-    if(ptRaiz==NULL)
+    if(ptRaiz == NULL)
         return 0;
-    else if(temp->esq== NULL && temp->dir==NULL) {
+    else if(temp->esq == NULL && temp->dir ==NULL) {
         if(temp->info == info2)
             return 1;
         else
             return 0;
-    } else if(temp->info==info2)
+    } else if(temp->info == info2)
         return 1;
     else {
-        while(parar==0) {
+        while(parar == 0) {
             if(temp->info < info2) {
                 if(temp->esq == NULL) {
                     parar++;
 
-                    if(temp->info==info2) {
+                    if(temp->info == info2) {
                         break;
                         return 1;
                     } else
                         return 0;
                 } else {
-                    temp=temp->esq;
+                    temp = temp->esq;
 
-                    if(temp->info== info2) {
+                    if(temp->info == info2) {
                         return 1;
                         break;
                     }
                 }
             } else if(temp->info > info2) {
-                if(temp->dir== NULL) {
+                if(temp->dir == NULL) {
                     parar++;
 
-                    if(temp->info==info2) {
+                    if(temp->info == info2) {
                         return 1;
                         break;
                     } else
                         return 0;
                 } else {
-                    temp=temp->dir;
+                    temp = temp->dir;
 
-                    if(temp->info== info2) {
+                    if(temp->info == info2) {
                         return 1;
                         break;
                     }
