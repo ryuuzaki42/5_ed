@@ -74,7 +74,7 @@ int inserirOrdenado(Lista **lista, Lista* inserir) {
         return 1;
     }
 
-    Lista* ant;
+    Lista* ant = NULL;
     Lista* aux = (*lista);
 
     while(aux != NULL && aux->cont >= nova->cont) {
