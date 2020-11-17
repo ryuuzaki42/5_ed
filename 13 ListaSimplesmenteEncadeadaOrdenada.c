@@ -260,7 +260,7 @@ int main() {
                 scanf("%d", &a.idade);
 
                 if(inserirNoFim(&lista, a))
-                    printf("Tudo certo :)");
+                    printf("Tudo certo :)\n");
                 else
                     printf("\nOcorreu um erro :(\n");
 
@@ -277,7 +277,7 @@ int main() {
                 nova->cont = 0;
 
                 if(inserirOrdenado(&lista, nova))
-                    printf("\nTudo certo :)");
+                    printf("Tudo certo :)\n");
                 else
                     printf("\n Ocorreu um erro :(\n");
 
@@ -299,11 +299,11 @@ int main() {
 
                 if(l != NULL) {
                     if(removerNaPosicao(&lista,l))
-                        printf("Tudo certo :)");
+                        printf("Tudo certo :)\n");
                     else
-                        printf("\nOcorreu um erro :(\n");
+                        printf("\n Ocorreu um erro :(\n");
                 } else
-                    printf("\nOcorreu um erro :(\n");
+                    printf("\nAluno \"%s\" não existe na lista!\n", a.nome);
 
                 break;
 
@@ -317,7 +317,7 @@ int main() {
                     printf("ELEMENTO ENCONTRADO: %s - %d\n", l2->info.nome,l2->cont);
                     printf("Tudo certo :)\n");
                 } else
-                    printf("\nOcorreu um erro :(\n");
+                    printf("\nAluno \"%s\" não existe na lista!\n", a.nome);
 
                 break;
 
