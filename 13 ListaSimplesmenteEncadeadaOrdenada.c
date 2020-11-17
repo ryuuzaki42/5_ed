@@ -93,6 +93,25 @@ int inserirOrdenado(Lista **lista, Lista* inserir) {
     return 1;
 }
 
+// IMPRIMIR
+void imprimirLista(Lista** lista) {
+    if(listaVazia((*lista)))
+        printf("\nLista Vazia :(\n");
+    else {
+        printf("Imprimir Lista\n");
+        Lista *aux = (*lista);
+        int i = 1;
+        printf("id - nome - idade - cont\n");
+
+        while(aux != NULL) {
+            printf("%d - %s - %d - %d\n", i, aux->info.nome, aux->info.idade, aux->cont);
+            i++;
+            aux = aux->next;
+        }
+        printf("\n");
+    }
+}
+
 // REMOVER
 void removerNoInicio(Lista** lista) {
     if(listaVazia((*lista)))
@@ -169,7 +188,6 @@ Lista* pesquisarElemento(Lista** lista, Aluno pesquisado) {
 
         aux = aux->next;
     }
-
     return NULL;
 }
 
@@ -186,22 +204,6 @@ void liberarLista(Lista** lista) {
         (*lista) = (*lista)->next;
         free(removida);
     }
-}
-
-// IMPRIMIR
-void imprimirLista(Lista** lista) {
-    printf("Imprimir Lista\n");
-    Lista *aux = (*lista);
-    int i = 1;
-    printf("id - nome - idade - cont\n");
-
-    while(aux != NULL) {
-        printf("%d - %s - %d - %d\n", i, aux->info.nome, aux->info.idade, aux->cont);
-        i++;
-        aux = aux->next;
-    }
-
-    printf("\n\n");
 }
 
 void Menu() {
