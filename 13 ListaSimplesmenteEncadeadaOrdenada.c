@@ -94,37 +94,41 @@ int inserirOrdenado(Lista **lista, Lista* inserir) {
 }
 
 // REMOVER
-Aluno removerNoInicio(Lista** lista) {
-    Aluno removido;
-
+void removerNoInicio(Lista** lista) {
     if(listaVazia((*lista)))
-        return removido;
+        printf("\nLista Vazia :(\n");
+    else {
+        Aluno removido;
+        Lista* aux = (*lista);
+        (*lista) = (*lista)->next;
+        removido = aux->info;
+        free(aux);
 
-    Lista* aux = (*lista);
-    (*lista) = (*lista)->next;
-    removido = aux->info;
-    free(aux);
-    return removido;
+        printf("ELEMENTO REMOVIDO: %s\n", removido.nome);
+        printf("\nTudo certo :)\n");
+    }
 }
 
-Aluno removerNoFim(Lista** lista) {
-    Aluno removido;
-
+void removerNoFim(Lista** lista) {
     if(listaVazia((*lista)))
-        return removido;
+        printf("\nLista Vazia :(\n");
+    else {
+        Aluno removido;
+        Lista* ant = NULL;
+        Lista* aux = (*lista);
 
-    Lista* ant = NULL;
-    Lista* aux = (*lista);
+        while(aux->next != NULL) {
+            ant = aux;
+            aux = aux->next;
+        }
 
-    while(aux->next != NULL) {
-        ant = aux;
-        aux = aux->next;
+        ant->next = NULL;
+        removido = aux->info;
+        free(aux);
+
+        printf("ELEMENTO REMOVIDO: %s\n", removido.nome);
+        printf("\nTudo certo :)\n");
     }
-
-    ant->next = NULL;
-    removido = aux->info;
-    free(aux);
-    return removido;
 }
 
 int removerNaPosicao(Lista** lista, Lista* aluno_pesquisado) { // Error
@@ -278,25 +282,11 @@ int main() {
                 break;
 
             case 4: // Remover no inicio
-                a = removerNoInicio(&lista);
-
-                if(a.nome) {
-                    printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("\nTudo certo :)\n");
-                } else
-                    printf("\nLista Vazia :(\n");
-
+                removerNoInicio(&lista);
                 break;
 
             case 5: // Remover no final
-                a = removerNoFim(&lista);
-
-                if(a.nome) {
-                    printf("ELEMENTO REMOVIDO: %s\n", a.nome);
-                    printf("Tudo certo :)\n");
-                } else
-                    printf("\nLista Vazia :(\n");
-
+                removerNoFim(&lista);
                 break;
 
             case 6: // Remover na posicao K
