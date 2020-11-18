@@ -297,9 +297,9 @@ int main() {
                 break;
 
             case 6: // Remover na posicao K
-                if(listaVazia((*lista)))
+                if(listaVazia(lista))
                     printf("\nLista Vazia :(\n");
-                else
+                else {
                     imprimirLista(&lista);
                     printf("Digite o nome do aluno para remover: ");
                     scanf("%s", a.nome);
