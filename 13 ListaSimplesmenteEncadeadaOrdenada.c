@@ -150,24 +150,29 @@ void removerNoFim(Lista** lista) {
     }
 }
 
-int removerNaPosicao(Lista** lista, Lista* aluno_pesquisado) { // Error
+int removerNaPosicao(Lista** lista, Lista* aluno_pesquisado) {
     if(listaVazia((*lista)))
         return 0;
 
     Lista* ant = NULL;
     Lista* aux = (*lista);
 
-    while(aux != aluno_pesquisado) {
+    while(aux != aluno_pesquisado && aux != NULL) {
         ant = aux;
         aux = aux->next;
     }
 
-    if((*lista)->next == NULL) {
-        (*lista) = NULL;
-        return 1;
-    }
+    if(aux == NULL)
+        return 0;
 
-    ant->next = aux->next;
+    if(aux == (*lista)) {
+        if((*lista)->next == NULL)
+            (*lista) = NULL;
+        else
+            (*lista) = (*lista)->next;
+    } else
+        ant->next = aux->next;
+
     return 1;
 }
 
@@ -292,19 +297,22 @@ int main() {
                 break;
 
             case 6: // Remover na posicao K
-                imprimirLista(&lista);
-                printf("Digite o nome do aluno para remover: ");
-                scanf("%s", a.nome);
-                Lista* l = pesquisarElemento(&lista, a);
+                if(listaVazia((*lista)))
+                    printf("\nLista Vazia :(\n");
+                else
+                    imprimirLista(&lista);
+                    printf("Digite o nome do aluno para remover: ");
+                    scanf("%s", a.nome);
+                    Lista* l = pesquisarElemento(&lista, a);
 
-                if(l != NULL) {
-                    if(removerNaPosicao(&lista,l))
-                        printf("Tudo certo :)\n");
-                    else
-                        printf("\n Ocorreu um erro :(\n");
-                } else
-                    printf("\nAluno \"%s\" não existe na lista!\n", a.nome);
-
+                    if(l != NULL) {
+                        if(removerNaPosicao(&lista,l))
+                            printf("Tudo certo :)\n");
+                        else
+                            printf("\n Ocorreu um erro :(\n");
+                    } else
+                        printf("\nAluno \"%s\" não existe na lista!\n", a.nome);
+                }
                 break;
 
             case 7:
