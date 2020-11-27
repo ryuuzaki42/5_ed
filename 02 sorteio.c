@@ -7,9 +7,8 @@ int main() {
     int countSorteios = 20;
     srand(seed);
 
-    for(int i = 1; i <= countSorteios; i++) {
+    for(int i = 1; i <= countSorteios; i++)
         printf("\nOrdem: %d - Equipe: %d", i, (rand() % countEquipes) + 1);
-    }
 
     printf("\n");
     return 0;
